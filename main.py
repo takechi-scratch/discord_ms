@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 from discord.ext import commands
 import discord
 
-from mylib.mine_sweeper import make_ms
+from mylib.mine_sweeper import MSBoard
 
 
 load_dotenv(verbose=True)
@@ -40,8 +40,8 @@ tree = bot.tree
     ephemeral="非公開で生成するか (Trueで非公開)"
 )
 async def send_ms(interaction: discord.Interaction, size: int = 10, mines: int = 12, ephemeral: bool = False):
-    board = make_ms(min(size, 10), mines)
-    res_text = f"爆弾数: {mines}\n" + "\n".join(["".join(row) for row in board])
+    ms = MSBoard(min(size, 10), mines)
+    res_text = f"爆弾数: {ms.mines}\n" + "\n".join(["".join(row) for row in ms.board])
 
     await interaction.response.send_message(res_text, ephemeral=ephemeral)
 
