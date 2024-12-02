@@ -36,7 +36,7 @@ async def send_ping(interaction: discord.Interaction):
     )
     embed.add_field(name="応答速度", value=f"{round(bot.latency * 1000)}ms")
     embed.add_field(name="導入サーバー数", value=f"{len(bot.guilds)} サーバー")
-    embed.add_field(name="導入ユーザー数", value=f"{len(bot.users)} 人")
+    embed.add_field(name="利用可ユーザー数", value=f"{len(bot.users)} 人")
     embed.set_footer(text="開発: takechi", icon_url="https://api.takechi.cloud/src/icon/takechi_v2.1.png")
 
     await interaction.response.send_message(embed=embed)
