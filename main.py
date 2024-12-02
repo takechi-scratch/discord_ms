@@ -28,6 +28,19 @@ bot = commands.Bot(
 tree = bot.tree
 
 
+@tree.context_menu(name="See answer")
+async def see_answer(interaction: discord.Interaction, message: discord.Message):
+    if message.author.id != bot.user.id:
+        embed = discord.Embed(
+            title="エラー",
+            description="マインスイーパーのメッセージを選択してください。",
+            color=discord.Color.red()
+        )
+        await interaction.response.send_message(embed=embed, ephemeral=True)
+
+    await interaction.response.send_message(message.content.replace("||", ""), ephemeral=True)
+
+
 @tree.command(name="ping", description="Botの状況を確認します。")
 async def send_ping(interaction: discord.Interaction):
     embed = discord.Embed(
