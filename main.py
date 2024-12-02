@@ -19,11 +19,6 @@ logger.setLevel(DEBUG)
 logger.addHandler(handler)
 logger.propagate = False
 
-intents = discord.Intents.default()
-intents.members = True
-intents.message_content = True
-
-
 bot = commands.Bot(
     command_prefix="t!",
     case_insensitive=True,
@@ -31,6 +26,21 @@ bot = commands.Bot(
     intents=discord.Intents.all()
 )
 tree = bot.tree
+
+
+@tree.command(name="ping", description="Botの状況を確認します。")
+async def send_ping(interaction: discord.Interaction):
+    embed = discord.Embed(
+        title="Pong!",
+        color=discord.Color.green()
+    )
+    embed.add_field(name="応答速度", value=f"{round(bot.latency * 1000)}ms")
+    embed.add_field(name="導入サーバー数", value=f"{len(bot.guilds)} サーバー")
+    embed.add_field(name="導入ユーザー数", value=f"{len(bot.users)} 人")
+    embed.set_footer(text="開発: takechi", icon_url="https://api.takechi.cloud/src/icon/takechi_v2.1.png")
+
+    await interaction.response.send_message(embed=embed)
+    logger.info(f"Pong 応答速度: {round(bot.latency * 1000)}ms")
 
 
 @tree.command(name="make_ms", description="マインスイーパーを作成します。")
@@ -44,6 +54,7 @@ async def send_ms(interaction: discord.Interaction, size: int = 10, mines: int =
     res_text = f"爆弾数: {ms.mines}\n" + "\n".join(["".join(row) for row in ms.board])
 
     await interaction.response.send_message(res_text, ephemeral=ephemeral)
+    logger.info("マインスイーパーを作成しました。")
 
 
 @bot.event
