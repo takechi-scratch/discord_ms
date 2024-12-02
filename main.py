@@ -41,6 +41,20 @@ async def see_answer(interaction: discord.Interaction, message: discord.Message)
     await interaction.response.send_message(message.content.replace("||", ""), ephemeral=True)
 
 
+@tree.command(name="invite", description="Botの紹介と招待リンクを表示します。")
+async def send_invite(interaction: discord.Interaction):
+    embed = discord.Embed(
+        title="discordBot「マインスイーパー」",
+        description="discordで遊べるマインスイーパーのメッセージを作成します。",
+        color=discord.Color.blue()
+    )
+    embed.add_field(name="遊ぶには？",
+                    value="プロフィールの「アプリを追加」または[こちら](https://discord.com/oauth2/authorize?client_id=1311666689758330893)から。\nユーザーインストールならどこでも遊べます！")
+
+    await interaction.response.send_message(embed=embed)
+    logger.info("招待リンクを送信しました。")
+
+
 @tree.command(name="ping", description="Botの状況を確認します。")
 async def send_ping(interaction: discord.Interaction):
     embed = discord.Embed(
