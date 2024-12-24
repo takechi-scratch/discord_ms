@@ -20,7 +20,7 @@ logger.addHandler(handler)
 logger.propagate = False
 
 intents = discord.Intents.default()
-intents.messages = True
+intents.message_content = True
 
 bot = commands.Bot(
     command_prefix="t!",
