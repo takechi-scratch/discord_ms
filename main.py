@@ -19,11 +19,14 @@ logger.setLevel(DEBUG)
 logger.addHandler(handler)
 logger.propagate = False
 
+intents = discord.Intents.default()
+intents.messages = True
+
 bot = commands.Bot(
     command_prefix="t!",
     case_insensitive=True,
     help_command=None,
-    intents=discord.Intents.all()
+    intents=intents
 )
 tree = bot.tree
 
